@@ -1,0 +1,37 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /dailycount
+    session:
+      timeout: 3600 # 单位为秒
+      cookie:
+        max-age: 3600
+  tomcat.max-threads: 0
+  tomcat.uri-encoding: UTF-8
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/wuhu?serverTimezone=GMT&useSSL=false
+    #?serverTimezone=GMT&useSSL=false
+    username: root
+    password: 1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    dbcp2:                                          # 进行数据库连接池的配置
+      min-idle: 5                                   # 数据库连接池的最小维持连接数
+      initial-size: 5                               # 初始化提供的连接数
+      max-total: 5                                  # 最大的连接数
+      max-wait-millis: 200                          # 等待连接获取的最大超时时间
+      type: com.alibaba.druid.pool.DruidDataSource  # 阿里druid 数据源
+
+mybatis:
+  mapperLocations: classpath:mapper/*.xml
+  typeAliasesPackage: com.dailycount.entity
+
+#pagehelper-spring-boot-starter
+pagehelper:
+  helper-dialect: MYSQL
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countSql
+
+
