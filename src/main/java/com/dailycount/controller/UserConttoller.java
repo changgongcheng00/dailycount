@@ -1,6 +1,8 @@
 package com.dailycount.controller;
 
+import com.alibaba.druid.wall.violation.ErrorCode;
 import com.dailycount.configuration.PageInfo;
+import com.dailycount.configuration.ResponseData;
 import com.dailycount.entity.User;
 import com.dailycount.repository.UserRepository;
 import com.dailycount.service.UserService;
@@ -14,8 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
 
 /**
  * @ClassName UserConttoller
@@ -49,4 +49,14 @@ public class UserConttoller {
         return pageInfo;
     }
 
+    @RequestMapping(value = "/login",method = RequestMethod.POST,
+        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseData login(@RequestBody User user){
+        int result =userService.login(user);
+        if(result >=1){
+            return ResponseData.success();
+        }else{
+            return ResponseData.error(ErrorCode.SYNTAX_ERROR,"账号密码错误");
+        }
+    }
 }

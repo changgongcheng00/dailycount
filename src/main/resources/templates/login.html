@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/includebase">
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+<body>
+	<div class="container-fluid-full">
+		<div class="row-fluid">
+			<div class="row-fluid">
+				<div class="login-box">
+					<h2>登录</h2>
+					<form class="form-horizontal" method="post"/>
+						<fieldset>
+							<input class="input-large span12" name="username" id="username" type="text" placeholder="用户名" />
+							<input class="input-large span12" name="password" id="password" type="password" placeholder="密码" />
+							<div class="clearfix"></div>
+							<label class="remember" for="remember"><input type="checkbox" id="remember" />记住我</label>
+							<div class="clearfix"></div>
+							<button id="login"  class="btn btn-primary span12">Login</button>
+						</fieldset>
+					</form>
+					<hr />
+				</div>
+			</div>
+		</div>
+	</div>
+
+<script>
+    $("#login").click(function () {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        if(username == '' || password == ''){
+			alert("用户名密码不能为空");
+			return;
+		}
+        var obj = {};
+        obj.username = username;
+        obj.password = password;
+        $.ajax({
+            url:"/dailycount/users/login",
+            type:"post",
+            contentType:"application/json;charset=UTF-8",
+            data:JSON.stringify(obj),
+            dataType:"json",
+            success : function (data) {
+                if(data.code == 0){
+                    window.location.href = "/dailycount/index";
+				}else{
+                    alert(data.msg);
+				}
+            }
+        })
+    });
+</script>
+</body>
+</html>

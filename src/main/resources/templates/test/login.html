@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="include/includebase">
+<meta content="text/html;charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>登录页面</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}"/>
+<style type="text/css">
+	body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+</style>
+
+</head>
+<body>
+     <div class="container">
+      <div class="starter-template">
+            </p> <!-- 2 -->
+			<h2>使用账号密码登录</h2>
+			<form id = "form" name="form"  action="/dailycount/users/login" method="POST">
+				<div class="form-group">
+					<label for="username">账号</label>
+					<input type="text" class="form-control" name="username" id="username" value="" placeholder="账号" />
+				</div>
+				<div class="form-group">
+					<label for="password">密码</label>
+					<input type="password" class="form-control" name="password" id="password" placeholder="密码" />
+				</div>
+				<input type="submit" id="login" value="Login" class="btn btn-primary" />
+			</form>
+      </div>
+    </div>
+		
+</body>
+<script>
+    $("#login").click(function () {
+        var username = $("#username").val();
+        var password = $("#password").val();
+        var data = [];
+        data.push({
+            "username":username,"password":password
+        });
+        $.ajax({
+            url:"/dailycount/users/login",
+            type:"post",
+            contentType:"application/json;charset=UTF-8",
+            data:{data:JSON.stringify(data)},
+            success : function (data) {
+                alert(data);
+            }
+        })
+    });
+</script>
+</html>
