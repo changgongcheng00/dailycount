@@ -13,10 +13,9 @@
     id, username, `password`, `role`, created_at, updated_at
   </sql>
 
-  <select id="login" parameterType="User" resultType="java.lang.Integer">
-    select count(1) FROM USER
+  <select id="login" parameterType="User" resultType="java.lang.String">
+    select password FROM USER
     WHERE username = #{username,jdbcType=VARCHAR}
-    and password = #{password,jdbcType=VARCHAR}
   </select>
 
   <select id="findList" parameterType="User" resultMap="BaseResultMap">

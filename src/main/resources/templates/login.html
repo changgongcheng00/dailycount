@@ -39,7 +39,7 @@
         obj.username = username;
         obj.password = password;
         $.ajax({
-            url:"/dailycount/users/login",
+            url:"/dailycount/login",
             type:"post",
             contentType:"application/json;charset=UTF-8",
             data:JSON.stringify(obj),

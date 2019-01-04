@@ -26,10 +26,9 @@ import org.springframework.web.servlet.ModelAndView;
  **/
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/")
 public class BaseConttoller {
 
-    @RequestMapping(value = "/")
+    @RequestMapping(value = "/toLogin")
     public ModelAndView main(){
         return new ModelAndView("login");
     }

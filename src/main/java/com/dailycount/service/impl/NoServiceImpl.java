@@ -1,7 +1,8 @@
-package com.dailycount.service;
+package com.dailycount.service.impl;
 
 import com.dailycount.dao.NoDao;
 import com.dailycount.entity.No;
+import com.dailycount.service.NoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;

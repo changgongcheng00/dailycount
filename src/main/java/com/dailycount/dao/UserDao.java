@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface UserDao {
 
-    int login(User user);
+    String login(User user);
 
     List<User> findList(User user);
 

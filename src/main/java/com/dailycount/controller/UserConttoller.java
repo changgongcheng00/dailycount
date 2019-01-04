@@ -1,11 +1,13 @@
 package com.dailycount.controller;
 
 import com.alibaba.druid.wall.violation.ErrorCode;
+import com.dailycount.configuration.BlankUtils;
 import com.dailycount.configuration.PageInfo;
 import com.dailycount.configuration.ResponseData;
 import com.dailycount.entity.User;
 import com.dailycount.repository.UserRepository;
 import com.dailycount.service.UserService;
+import com.dailycount.configuration.Md5Util;
 import com.github.pagehelper.PageHelper;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -16,6 +18,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import sun.misc.Request;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 /**
  * @ClassName UserConttoller
@@ -26,7 +32,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "用户管理")
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/users")
 public class UserConttoller {
 
     @Autowired
@@ -51,12 +56,18 @@ public class UserConttoller {
 
     @RequestMapping(value = "/login",method = RequestMethod.POST,
         consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseData login(@RequestBody User user){
-        int result =userService.login(user);
-        if(result >=1){
-            return ResponseData.success();
-        }else{
-            return ResponseData.error(ErrorCode.SYNTAX_ERROR,"账号密码错误");
+    public ResponseData login(@RequestBody User user,HttpServletRequest request){
+        String password =userService.login(user);
+        if(BlankUtils.isBlank(password)){
+            return ResponseData.error(ErrorCode.SYNTAX_ERROR,"账号不存在");
         }
+        String oldPwd = Md5Util.JM(password);
+        String newPwd = Md5Util.MD5(user.getPassword());
+        if(!oldPwd.equalsIgnoreCase(newPwd)){
+            return ResponseData.error(ErrorCode.SYNTAX_ERROR,"密码错误");
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("user",user);
+        return ResponseData.success();
     }
 }

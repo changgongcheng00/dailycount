@@ -6,7 +6,7 @@ import com.github.pagehelper.Page;
 import java.util.List;
 
 public interface UserService {
-    int login(User user);
+    String login(User user);
 
     List<User> findList(User user);
 
