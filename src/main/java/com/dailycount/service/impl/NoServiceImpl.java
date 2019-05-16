@@ -4,6 +4,7 @@ import com.dailycount.dao.NoDao;
 import com.dailycount.entity.No;
 import com.dailycount.service.NoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * @Author cheng
  * @Date 2018/12/24 18:14
  **/
+@Service
 public class NoServiceImpl implements NoService {
 
     @Autowired

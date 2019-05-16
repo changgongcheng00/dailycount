@@ -22,19 +22,19 @@
     SELECT <include refid="Base_Column_List" /> from USER
     WHERE 1=1
     <if test="username != null">
-     AND username = #{username,jdbcType=VARCHAR},
+     AND username = #{username,jdbcType=VARCHAR}
     </if>
     <if test="password != null">
-      AND `password` = #{password,jdbcType=VARCHAR},
+      AND `password` = #{password,jdbcType=VARCHAR}
     </if>
     <if test="role != null">
-      AND `role` = #{role,jdbcType=VARCHAR},
+      AND `role` = #{role,jdbcType=VARCHAR}
     </if>
     <if test="createdAt != null">
-      AND created_at = #{createdAt,jdbcType=TIMESTAMP},
+      AND created_at = #{createdAt,jdbcType=TIMESTAMP}
     </if>
     <if test="updatedAt != null">
-      AND updated_at = #{updatedAt,jdbcType=TIMESTAMP},
+      AND updated_at = #{updatedAt,jdbcType=TIMESTAMP}
     </if>
     order by id asc
   </select>

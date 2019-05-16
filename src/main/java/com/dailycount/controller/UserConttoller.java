@@ -41,9 +41,8 @@ public class UserConttoller {
     private UserRepository userRepository;
 
     @ApiOperation(value="用户查询")
-    @RequestMapping(value = "/list",method = RequestMethod.POST,
-        consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public PageInfo<User> findList(@RequestBody User user){
+    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    public PageInfo<User> findList(){//@RequestBody User user
         //mybatis查询
 //        userService.findList(user);
         //jpa查询
